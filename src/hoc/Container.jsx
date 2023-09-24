@@ -1,12 +1,12 @@
 
 /* eslint-disable react/prop-types */
-export const Wrapper = ({ children }) => {
+export const Container = ({ children }) => {
 	return (
 		<div
 			style={{
 				width: '100%',
-				minHeight: '800px',
-				marginTop: '40px',
+				marginTop: '64px',
+				overflow: 'hidden',
 			}}
 		>
 			{children}

@@ -1,9 +1,22 @@
-import styles from './Home.module.scss'
+/* eslint-disable react/prop-types */
+import { useGetDataQuery } from '../../../store/api/curr.api'
+import { LoadingMin } from '../../ui/Loading/LoadingMin'
+import { Currency } from './../Currency/Currency';
 
-export const Home = () =>{
-  return(
-    <div className={styles.page}>
+export const Home = () => {
+	const { isLoading, data } = useGetDataQuery()
 
-    </div>
-  )
+	return (
+		<>
+			{isLoading ? (
+				<LoadingMin />
+			) : data ? (
+				<Currency data={data} />
+			) : (
+				'Ошибка сервера'
+			)}
+		</>
+	)
 }
+
+
