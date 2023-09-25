@@ -1,16 +1,16 @@
 import { initializeApp } from "firebase/app"
-
+import { getFirestore } from "firebase/firestore";
 // Оставлю свои токены для вашего теста
 const firebaseConfig = {
-  apiKey: 'AIzaSyBB0K-BM55EFuDlfKHXxYda_Pce1SdJLeI',
-  authDomain: 'auth-system-daa3a.firebaseapp.com',
-  projectId: 'auth-system-daa3a',
-  storageBucket: 'auth-system-daa3a.appspot.com',
-  messagingSenderId: '1072996347122',
-  appId: '1:1072996347122:web:bf2be4677d32a59cf6346b',
+  apiKey: "AIzaSyBpBVLqfo2mYgK4C-x3EHBgNCvXLnUIxOw",
+  authDomain: "simple-coin-c5360.firebaseapp.com",
+  projectId: "simple-coin-c5360",
+  storageBucket: "simple-coin-c5360.appspot.com",
+  messagingSenderId: "917493648442",
+  appId: "1:917493648442:web:3e732f0614f6e7bacc7903"
 }
 
 
-
-
 export const app = initializeApp(firebaseConfig)
+
+export const db = getFirestore(app);

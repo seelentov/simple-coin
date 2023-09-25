@@ -1,0 +1,118 @@
+.page{
+  animation: Appearance 0.2s forwards linear;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h2{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes Appearance {
+  0%{
+    left: 100%;
+    opacity: 0
+  }
+  100%{
+    left: 0;
+    opacity: 1
+  }
+}
+
+
+.form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 100%;
+  input{
+    width: 80%;
+    background: white;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px rgb(123, 123, 123) solid;
+    color: black; 
+  }
+  button{
+    background: rgb(240, 176, 0);
+    color: white;
+    height: 50px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px auto;
+    &:active{
+      animation: buttonTap 0.1s linear infinite;
+    }
+  }
+  
+}
+
+.errorsYes{
+  text-align: center;
+  padding: 0 10px;
+  background: rgb(195, 0, 0);
+  color: white;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+
+.errorsNo{
+  padding: 0 10px;
+  text-align: center;
+  color: white;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+
+@keyframes buttonTap {
+  0%{
+    background: linear-gradient(90deg, #343434, rgb(124, 124, 124) 100%)
+  }
+  100%{
+    background: linear-gradient(90deg, rgb(124, 124, 124), #343434)
+  }
+}
+
+
+.cart{
+  margin: 5px auto;
+  width: 68%;
+  object-fit: contain;
+}
+
+.success{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 300px;
+  background: green;
+  color: white;
+  font-size: 40px;
+  border-radius: 30px;
+  line-height: 1.3;
+}

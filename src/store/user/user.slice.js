@@ -4,11 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 let initialState = {
   email: null,
   token: null,
-  id: 'sd',
-  name: null,
-  img: null,
-  birth: null,
-  messages: []
+  id: null
 }
 
 export const userSlice = createSlice({
@@ -19,19 +15,11 @@ export const userSlice = createSlice({
       state.email = inputs.email
       state.token = inputs.token
       state.id = inputs.id
-      state.name = inputs.name
-      state.img = inputs.img
-      state.birth = inputs.birth
-      state.messages = inputs.messages
     },
-    logout: (state,) => {
+    clearUser: (state,) => {
       state.email = null
       state.token = null
       state.id = null
-      state.name = null
-      state.img = null
-      state.birth = null
-      state.messages = []
     }
   }
 })

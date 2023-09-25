@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 
 import { useParams } from 'react-router-dom'
+import { useAuth } from '../../../hooks/useAuth'
 import { useGetDataQuery } from '../../../store/api/curr.api'
 import { LoadingMin } from './../../ui/Loading/LoadingMin'
 import { CurrencyChart } from './CurrencyChart'
 import styles from './CurrencyMore.module.scss'
+import { Link } from 'react-router-dom';
 
 export const CurrencyMore = () => {
 	const { id } = useParams()
 	const { isLoading, data } = useGetDataQuery()
-
 	return (
 		<>
 			{isLoading ? (
@@ -39,8 +41,7 @@ export const CurrencyMore = () => {
 												: 'red',
 									}}
 								>
-									{(data.Valute[id].Value - data.Valute[id].Previous) >
-									0
+									{data.Valute[id].Value - data.Valute[id].Previous > 0
 										? ' ▲'
 										: ' ▼'}
 									{Math.abs(
@@ -53,7 +54,11 @@ export const CurrencyMore = () => {
 							</p>
 						</div>
 					</div>
-					<button className={styles.buy}>Приобрести</button>
+					{useAuth() && (
+						<Link to={`/purchase/${data.Valute[id].CharCode}`}>
+							<button className={styles.buy}>Приобрести</button>
+						</Link>
+					)}
 					<div className={styles.symbol}>
 						<div className={styles.symbol}>{data.Valute[id].CharCode}</div>
 					</div>

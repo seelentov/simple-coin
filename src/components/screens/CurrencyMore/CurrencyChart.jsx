@@ -31,21 +31,23 @@ export const CurrencyChart = ({ valute }) => {
 				setMiddle([Math.max(...middleData), Math.min(...middleData)])
 				setMiddleDate([...middleDate.reverse()])
 				setLoading(false)
-				console.log(middleDate)
 				return
 			}
     
 			const response = await axios.get(url)
-			everyData.push({
-				date: response.data.Date,
-				currency:
-					response.data.Valute[valute].Value /
-					response.data.Valute[valute].Nominal,
-				diff:
-					(response.data.Valute[valute].Value -
-						response.data.Valute[valute].Previous) /
-					response.data.Valute[valute].Nominal,
-			})
+      if(response.data){
+        everyData.push({
+          date: response.data.Date,
+          currency:
+            response.data.Valute[valute].Value /
+            response.data.Valute[valute].Nominal,
+          diff:
+            (response.data.Valute[valute].Value -
+              response.data.Valute[valute].Previous) /
+            response.data.Valute[valute].Nominal,
+        })
+      }
+      console.log(everyData)
 			middleData.push(
 				Number(
 					response.data.Valute[valute].Value /

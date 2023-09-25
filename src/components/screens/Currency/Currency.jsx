@@ -39,7 +39,7 @@ export const Currency = ({ data }) => {
 								<Link to={`/currency/${key}`}>
 									<button className={styles.more}>Подробнее</button>
 								</Link>
-                <Link to={`/currency/${key}`}>
+                <Link to={`/purchase/${key}`}>
                 <button className={styles.buy}>Купить</button>
 								</Link>
 								

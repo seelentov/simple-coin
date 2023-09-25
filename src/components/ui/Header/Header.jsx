@@ -45,7 +45,7 @@ export const Header = ({ items }) => {
 					return (
 						<Link key={key} to={e.href}>
 							<button
-								style={{ background: e.color ? e.color : 'transparent' }}
+								style={{ background: e.bg ? e.bg : 'transparent', color: e.color ? e.color : 'black' }}
 								className={styles.links}
 								onClick={() => handleClick()}
 							>

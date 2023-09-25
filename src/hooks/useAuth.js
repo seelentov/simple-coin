@@ -1,6 +1,6 @@
-import { useThisStore } from './useStoreBy'
+import { useStoreBy } from './useStoreBy'
 
 export const useAuth = () => {
-  const user = useThisStore('user')
+  const user = useStoreBy('user')
   return !!user.id
 }

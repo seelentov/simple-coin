@@ -69,10 +69,10 @@ display: flex;
 .line{
   position: relative;
   margin: 0 auto;
-  width: 2px;
-  background: black;
+  width: 1px;
+  background: rgb(0, 0, 0);
   height: 100%;
-  z-index: -1;
+  z-index: 0;
 }
 .info{
   height: 20%;

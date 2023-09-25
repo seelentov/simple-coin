@@ -1,0 +1,97 @@
+.page{
+
+}
+.top{
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+img{
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+}
+.desc{
+  margin-left: 50px;
+  width: 50%;
+}
+.name{
+  font-size: 30px;
+  font-weight: 600;
+}
+.items{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.itemName{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  gap: 4px;
+}
+.itemValue{
+  font-weight: 300;
+  display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+.item{
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info{
+  h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  p{
+    margin-bottom: 20px;
+    font-size: 30px;
+    span{
+      font-size: 20px;
+    }
+  }
+}
+
+.btns{
+  display: flex;
+  gap: 20px;
+}
+
+.more{
+
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.buy{
+  padding: 5px;
+  border-radius: 5px;
+  background: rgb(255, 145, 0);
+  font-weight: 700;
+}
+.symbol{
+  font-weight: 200;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 50px;
+}
