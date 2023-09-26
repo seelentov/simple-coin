@@ -5,16 +5,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-}
-
-.itemWallet{
-  padding: 20px;
-  border-radius: 20px;
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  animation: Slide 0.2s linear forwards;
+  animation: Appearance 0.1s linear forwards;
   z-index: -1;
   position: relative;
 }
@@ -144,8 +135,6 @@
   }
   
 }
-
-
 
 .errorsYes{
   text-align: center;

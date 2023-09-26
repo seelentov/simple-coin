@@ -51,6 +51,9 @@
     &:active{
       animation: buttonTap 0.1s linear infinite;
     }
+    &:disabled{
+      opacity: 0.5;
+    }
   }
   
 }

@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useStoreBy } from '../../../hooks/useStoreBy'
 import styles from './Account.module.scss'
-
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import { LoadingMin } from '../../ui/Loading/LoadingMin'
+import { useActions } from './../../../hooks/useActions';
+import { clearCookieLogin } from '../../../service/cookieLogin'
+
+
 export const Account = () => {
 	const [userData, setUserData] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -15,9 +18,11 @@ export const Account = () => {
 	const user = useStoreBy('user')
 	const { id } = useParams()
 
-	const [myAcc, setMyAcc] = useState(false)
+	const { clearUser } = useActions()
 
 	const navigate = useNavigate()
+  if (!user.id) navigate('/account')
+
 	useEffect(() => {
 		setLoading(true)
 		const unsub = onSnapshot(
@@ -30,7 +35,6 @@ export const Account = () => {
 		)
 
 		if (!user) navigate('/account')
-		if (user.id === id) setMyAcc(true)
 
 		return unsub
 	}, [])
@@ -46,6 +50,7 @@ export const Account = () => {
 							<p className={styles.name}>{userData.name}</p>
 							<p className={styles.email}>{userData.email}</p>
 						</div>
+						<div></div>
 						<img src={userData.img} />
 					</div>
 					<div className={styles.items}>
@@ -66,21 +71,26 @@ export const Account = () => {
 									.map(key => (
 										<div key={key} className={styles.item}>
 											<div className={styles.info}>
+												<p className={styles.itemValue}>
+													{userData.wallet[key].Value.toString().slice(0, 9)}
+												</p>
 												<div className={styles.btns}>
 													{userData.wallet[key].CharCode === 'RUB' ? (
 														<Link to={'/replenishment'}>
 															<button className={styles.more}>Пополнить</button>
 														</Link>
 													) : (
-														<button className={styles.more}>
-															Конвертировать
-														</button>
+														<Link
+															to={`/convert/${userData.wallet[key].CharCode}`}
+														>
+															<button className={styles.more}>
+																Конвертировать
+															</button>
+														</Link>
 													)}
 												</div>
 											</div>
-											<p className={styles.itemValue}>
-												{userData.wallet[key].Value}
-											</p>
+
 											<div className={styles.itemName}>
 												<div className={styles.symbol}>
 													{userData.wallet[key].CharCode}
@@ -90,7 +100,17 @@ export const Account = () => {
 										</div>
 									))
 							: 'Загрузка..'}
+              <button
+						className={styles.quit}
+						onClick={() => {
+							clearCookieLogin()
+							clearUser()
+						}}
+					>
+						Выйти
+					</button>
 					</div>
+					
 				</div>
 			)}
 		</>

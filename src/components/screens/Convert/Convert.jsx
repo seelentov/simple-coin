@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getData, updateData } from '../../../hooks/cfsHooks'
 import { useStoreBy } from '../../../hooks/useStoreBy'
 import { useGetDataQuery } from '../../../store/api/curr.api'
-import { Loading } from './../../ui/Loading/Loading'
-import styles from './Purchase.module.scss'
+import { Loading } from '../../ui/Loading/Loading'
+import styles from './Convert.module.scss'
 import { Valute } from './Valute'
 import { Wallet } from './Wallet'
-import { useNavigate } from 'react-router-dom';
 
-export const Purchase = () => {
+export const Convert = () => {
 	const [input, setInput] = useState(0)
 	const [inputError, setInputError] = useState(false)
 	const [value, setValue] = useState(0)
@@ -22,12 +21,12 @@ export const Purchase = () => {
 	const { name } = useParams()
 
 	const { isLoading, data } = useGetDataQuery()
+
   const navigate = useNavigate()
-  
   if (!user.id) navigate('/account')
+
+
 	useEffect(() => {
-
-
 		getData('users', user.id, r => {
 			setUser(r)
 		})
@@ -37,7 +36,7 @@ export const Purchase = () => {
 		e.preventDefault()
 		setInputError(false)
 
-		if (input > thisUser.wallet.RUB.Value) {
+		if (input > thisUser.wallet[name].Value) {
 			setInputError(true)
 			return
 		}
@@ -49,13 +48,13 @@ export const Purchase = () => {
 					...r.wallet,
 					[name]: {
 						Value:
-							(r.wallet[name] ? Number(r.wallet[name].Value) : 0) +
-							Number(value),
+							(r.wallet[name] ? Number(r.wallet[name].Value) : 0) -
+							Number(input),
 						CharCode: name,
 						Name: data.Valute[name].Name,
 					},
 					RUB: {
-						Value: Number(r.wallet.RUB.Value) - Number(input),
+						Value: Number(r.wallet.RUB.Value) + Number(value),
 						CharCode: 'RUB',
 						Name: 'Российский рубль',
 					},
@@ -64,23 +63,25 @@ export const Purchase = () => {
 			setState('success')
 		})
 	}
-
 	return (
 		<div className={styles.page}>
 			{state === 'edit' ? (
 				<>
 					{!isLoading && (
 						<>
-							<h2>Приобретение валюты</h2>
+							<h2>Конвертация валюты</h2>
 							<form className={styles.form} onSubmit={e => handleSubmit(e)}>
-								<Valute
-									data={data}
+              {thisUser?.wallet?.RUB && (
+									<Valute
+									data={thisUser}
 									name={name}
 									bg={{
 										background:
 											'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) ',
 									}}
 								/>
+								)}
+								
 								{thisUser?.wallet?.RUB && (
 									<Wallet
 										data={thisUser}
@@ -91,9 +92,9 @@ export const Purchase = () => {
 									/>
 								)}
 								<p className={styles.value}>
-									Вы получите:{' '}
+									Вы получите:
 									<span>
-										{value} {data.Valute[name].CharCode}
+										{value} RUB
 									</span>
 								</p>
 								<input
@@ -102,9 +103,7 @@ export const Purchase = () => {
 										setInput(e.target.value)
 										setValue(
 											(
-												Number(e.target.value) /
-												(Number(data.Valute[name].Value) /
-													Number(data.Valute[name].Nominal))
+												Number(e.target.value) * Number(data.Valute[name].Value)
 											)
 												.toString()
 												.slice(0, 7)
@@ -117,10 +116,7 @@ export const Purchase = () => {
 								{inputError && (
 									<p className={styles.inputError}>Недостаточно средств</p>
 								)}
-								<button disabled={input < 100}>Пополнить</button>
-								<p style={{ textAlign: 'center' }}>
-									Минимальная сумма покупки - на 100 Р
-								</p>
+								<button disabled={input <= 0}>Пополнить</button>
 							</form>
 						</>
 					)}

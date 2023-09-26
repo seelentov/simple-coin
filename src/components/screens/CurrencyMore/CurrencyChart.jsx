@@ -33,21 +33,20 @@ export const CurrencyChart = ({ valute }) => {
 				setLoading(false)
 				return
 			}
-    
+
 			const response = await axios.get(url)
-      if(response.data){
-        everyData.push({
-          date: response.data.Date,
-          currency:
-            response.data.Valute[valute].Value /
-            response.data.Valute[valute].Nominal,
-          diff:
-            (response.data.Valute[valute].Value -
-              response.data.Valute[valute].Previous) /
-            response.data.Valute[valute].Nominal,
-        })
-      }
-      console.log(everyData)
+			if (response.data) {
+				everyData.push({
+					date: response.data.Date,
+					currency:
+						response.data.Valute[valute].Value /
+						response.data.Valute[valute].Nominal,
+					diff:
+						(response.data.Valute[valute].Value -
+							response.data.Valute[valute].Previous) /
+						response.data.Valute[valute].Nominal,
+				})
+			}
 			middleData.push(
 				Number(
 					response.data.Valute[valute].Value /
@@ -71,7 +70,7 @@ export const CurrencyChart = ({ valute }) => {
 	const changeInfo = info => {
 		setInfo(info)
 	}
-  
+
 	return (
 		<>
 			{loading && <LoadingMin />}
@@ -94,22 +93,17 @@ export const CurrencyChart = ({ valute }) => {
 				>
 					За месяц
 				</button>
-				<button
-					style={{
-						background: range === 365 ? 'white' : 'black',
-						color: range === 365 ? 'black' : 'white',
-					}}
-					onClick={() => setRange(365)}
-				>
-					За год
-				</button>
 			</div>
 			<div className={styles.container}>
 				<div className={styles.graphCurr}>
 					<div className={styles.graphCurrNums}>
-						<p>{parseInt(middle[0])}</p>
-						<p>{parseInt((middle[0] - middle[1]) / 2 + middle[1])}</p>
-						<p>{parseInt(middle[1])}</p>
+						{!loading && (
+							<>
+								<p>{parseInt(middle[0])}</p>
+								<p>{parseInt((middle[0] - middle[1]) / 2 + middle[1])}</p>
+								<p>{parseInt(middle[1])}</p>
+							</>
+						)}
 					</div>
 					<div className={styles.graphCurrLine}></div>
 				</div>
@@ -144,9 +138,11 @@ export const CurrencyChart = ({ valute }) => {
 					<div className={styles.graphDate}>
 						<div className={styles.graphDateLine}></div>
 						<div className={styles.graphDateNums}>
-							{middleDate.length > 0 ? middleDate.map((e, key) => (
-								<p key={key}>{formatOnlyDayMonth(e)}</p>
-							)) : ''}
+							{middleDate.length > 0
+								? middleDate.map((e, key) => (
+										<p key={key}>{formatOnlyDayMonth(e)}</p>
+								  ))
+								: ''}
 						</div>
 					</div>
 				</div>

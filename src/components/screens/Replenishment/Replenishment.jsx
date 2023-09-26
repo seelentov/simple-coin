@@ -3,6 +3,7 @@ import { useStoreBy } from '../../../hooks/useStoreBy'
 import { Loading } from '../../ui/Loading/Loading'
 import { getData, updateData } from './../../../hooks/cfsHooks'
 import styles from './Replenishment.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const Replenishment = () => {
 	const [input, setInput] = useState('')
@@ -10,8 +11,17 @@ export const Replenishment = () => {
 
 	const { id } = useStoreBy('user')
 
+  const navigate = useNavigate()
+  
+  if (!id) navigate('/account')
+
 	const handleSubmit = e => {
 		e.preventDefault()
+
+    if(input < 1000){
+      return
+    }
+
 		setState('loading')
 		getData('users', id, r => {
 			updateData('users', id, {
@@ -44,7 +54,10 @@ export const Replenishment = () => {
 							type='number'
 							placeholder='Сумма'
 						/>
-						<button>Пополнить</button>
+						<button disabled={input < 1000}>Пополнить</button>
+            <p style={{ textAlign: 'center' }}>
+									Минимальная сумма пополнения - 1000 Р
+								</p>
 					</form>
 				</>
 			) : state === 'success' ? (

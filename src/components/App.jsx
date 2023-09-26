@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Header } from './ui/Header/Header'
 //import { Footer } from './ui/Footer/Footer'
+import { IsAuth } from '../context/isAuth'
 import { Container } from '../hoc/Container'
 import { useAuth } from '../hooks/useAuth'
 import { useStoreBy } from './../hooks/useStoreBy'
@@ -11,9 +12,9 @@ import { CurrencyMore } from './screens/CurrencyMore/CurrencyMore'
 import { Home } from './screens/Home/Home'
 import { LoginPage } from './screens/Login/LoginPage'
 import { PageNotFound } from './screens/PageNotFound/PageNotFound'
-import { IsAuth } from '../context/isAuth'
-import { Replenishment } from './screens/Replenishment/Replenishment';
+import { Convert } from './screens/Convert/Convert'
 import { Purchase } from './screens/Purchase/Purchase'
+import { Replenishment } from './screens/Replenishment/Replenishment'
 
 export const App = () => {
 	const { id } = useStoreBy('user')
@@ -54,6 +55,7 @@ export const App = () => {
 							<Route path='*' element={<PageNotFound />} />
 							<Route path='/replenishment' element={<Replenishment />} />
 							<Route path='/purchase/:name' element={<Purchase />} />
+							<Route path='/convert/:name' element={<Convert />} />
 						</Routes>
 					</IsAuth>
 				</Container>
